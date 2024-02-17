@@ -1,0 +1,15 @@
+# IntelliJ IDEA
+.idea
+
+/gradle
+.gradle
+./greadle
+build/
+.gradle.kts/
+
+# Gradle Wrapper
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# Others
+*.iml
