@@ -1,7 +1,7 @@
 import kotlin.reflect.KProperty
 
 class ContohClassDelegation {
-    // variable value bisa diganti tipe data "any" agar bisa disini berbagai tipe data
+    // variable value bisa diganti tipe data "any" agar bisa menggunakan berbagai tipe data
     private var value: String = "Default"
 
     operator fun getValue(classRef: Any?, property: KProperty<*> ) : String {
