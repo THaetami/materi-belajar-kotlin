@@ -37,8 +37,78 @@ data class ContohDataClass(val name: String, val age: Int) {
     }
 }
 
-fun main() {
 
+/*
+    * nested class adalah class di dalam class
+    * apabila suatu clas memang hanya digunakan oleh satu class
+      saja dan keduannya memiliki hubungan yang erat, lebih baik
+      dibuat nested class untuk meningkatkan enkapsulasi dan kode
+      lebih bersih
+*/
+
+// nested class
+class House {
+    // properti atau anggota outer class
+    val buildingArea = 100
+    val totalRooms = 4
+
+    /*
+        * keyword inner ditambahkan agar inner class dpt
+          mengakses Outer Class alias House() class.
+        * jika nama properti Outer dan Inner class memiliki
+          nama yang sama, maka gunakan
+          qualifield this -> " this@NamaClass.namaProperti "
+    */
+    inner class Room {
+        // properti atau anggota inner class
+        val totalRooms = 10
+        fun measureRoomArea() {
+            //inner class dpt mengakases properti outer class
+            println(buildingArea/this@House.totalRooms)
+        }
+    }
+}
+
+
+/*
+    Enum Class,
+
+    * salah fitur yang bisa digunakan untuk menyimpan
+      kumpulan object yang telah didefinisikan menjadi tipe data
+      konstanta.
+    * enum berguna untuk meminimalisir nilai variable tertukar
+      dengan nilai variable lain, meminimalisir kesalahan
+      pengetikan
+    * object yang berada di dalam Enum secara implisit bersifat
+      static dan final sehingga kita tidak dapat mengubahnya
+      setelah dideklarasikan.
+*/
+enum class Color(val value: Int) {
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+
+/*
+    Sealed class
+
+    * untuk pembatasan hierarki class
+    * semua turunannya harus sesuai dengan yang didefinisikan
+      di dalam class tersebut.
+    * mirip enum tapi jauh lebih fleksibel. enum hanya berisi
+      satu object atau instance yang sama per class, sedang
+      sealed class dpt berisi beberap object yang berbeda
+      untuk memberikan info lebih
+*/
+sealed class Result {
+    sealed class Success (val data: Any): Result()
+    data class Error(val message: String): Result()
+    object Loading: Result()
+}
+
+
+fun main() {
     val dataClass = ContohDataClass("tatang", 18)
 
     dataClass.intro()
@@ -85,4 +155,48 @@ fun main() {
     val (name, age) = dataClass
     println(name)
     println(age)
+
+    // menggunakan nested class
+    val house = House()
+    val room = house.Room()
+    room.measureRoomArea()
+
+    /*
+        Enum
+
+        fungsi values() untuk mendapatkan daftar object Enum,
+        selain itu bisa menggunakan enumValues()
+    */
+
+    // val colors: Array<Color> = Color.values()
+    val colors: Array<Color> = enumValues()
+    colors.forEach { color ->
+        println("${color.name} = ${color.value.toString(16)}")
+    }
+
+
+    /*
+        valueOf() untuk mendapatkan nama dari object Enum,
+        selain itu bisa menggunakan enumValueOf()
+     */
+    // val colorName: Color = enumValueOf("RED")
+    val colorName: Color = Color.valueOf("RED")
+    println("color is $colorName")
+    println("color value is ${colorName.value.toString(16)}")
+
+
+    // penggunaan sealed class
+    val result: Result = Result.Error("Opps")
+    when(result) {
+        //jika salah satu kondisi dihapus, kode akan error
+        is Result.Success -> {
+            println("Success: ${result.data}")
+        }
+        is Result.Error -> {
+            println("Error: ${result.message}")
+        }
+        is Result.Loading -> {
+            println("Loading...")
+        }
+    }
 }
