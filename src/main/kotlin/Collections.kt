@@ -1,7 +1,8 @@
 /*
     * collection merupakan sebuah object yang bisa menyimpan kumpulan
       object lain termasuk data class,
-    * object turunan collection diantaranya list, set dan map
+    * object turunan collection diantaranya list, set dan map yang
+      merupakan jenis collection eager evaluation
 */
 
 data class User(val name: String) {
@@ -146,5 +147,106 @@ fun main() {
     println(mapValues) // mengembil seluruh value
 
 
+    // OPERATOR COLLECTION
+    val numCollection = listOf(1, 2, 3, 4, 5, 6)
+
+    /*
+        FOLD
+    */
+    val fold = numCollection.fold(10) { current, item ->
+        /*
+            * melakukan perhitungan setiap nilai collection tanpa
+              harus melakukan iterasi item
+        */
+        println("current $current")
+        println("item $item")
+        current + item
+    }
+    println(fold)
+
+        /*
+            note:
+            foldRight() akan melakukan proses iterasi dari indeks terakhir
+        */
+
+
+    /*
+        DROP
+    */
+    val drop = numCollection.drop(3) // memotong collection dari index pertama
+    val dropLast = numCollection.dropLast(3) // memotong collection dari index terakhir
+    println(drop) // [4, 5, 6]
+    println(dropLast) // [1, 2, 3]
+
+
+    /*
+        TAKE
+    */
+    val take = numCollection.take(3) // mengambil collection dari index pertama
+    val takeLast = numCollection.takeLast(3) // mengambil collection dari index terakhir
+    println(take) // [1, 2, 3]
+    println(takeLast) // [4, 5, 6]
+
+
+    /*
+        SLICE, menyaring item dari posisi tertentu
+    */
+    val slice = numCollection.slice(2..4) // dari index 2 - 4
+    val sliceStep = numCollection.slice(2..4 step 2)
+    println(slice) // [3, 4, 5]
+    println(sliceStep) // [3, 5]
+
+    val index = listOf(2, 3, 5, 8)
+    val total = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    val sliceTotal = total.slice(index) // akan berisi collection/variable "total" yang berindex 2, 3, 5, 8
+    println(sliceTotal) // [3, 4, 6, 9]
+
+
+    /*
+        CHUNKED, untuk memecah nilai string menjadi beberap bagian
+        kecil menjadi array
+    */
+    val word = "QWERTY"
+    val chunked = word.chunked(3)
+    println(chunked) // [QWE, RTY]
+
+    val chunkedTransform = word.chunked(3) {
+        it.toString().toLowerCase()
+    }
+    println(chunkedTransform) // [qwe, rty]
+
+
+
+    /*
+        DISTINCT, menyaring item yang sama di dalam sebuah collection
+    */
+    val numDistinct = listOf(1, 2, 1, 3, 4, 5, 2, 3, 4, 5)
+    val distinct = numDistinct.distinct()
+    println(distinct) // [1, 2, 3, 4, 5]
+
+    // contoh distinctBy(), menyaring item yg memiliki panjang yg sama
+    val text = listOf("A", "B", "CC", "DD", "EEE", "F", "GGGG")
+    val distinctBy = text.distinctBy {
+        it.length
+    }
+
+    println(distinctBy) // [A, CC, EEE, GGGG]
+
+    // contoh distinc lain
+    val items = listOf(
+        Item("1", "Kotlin"),
+        Item("2", "is"),
+        Item("3", "Awesome"),
+        Item("3", "as"),
+        Item("3", "Programming"),
+        Item("3", "Language")
+    )
+
+    val distinctItems = items.distinctBy { it.key }
+    distinctItems.forEach {
+        println("${it.key} with value ${it.value}")
+    }
 
 }
+
+data class Item(val key: String, val value: Any)
