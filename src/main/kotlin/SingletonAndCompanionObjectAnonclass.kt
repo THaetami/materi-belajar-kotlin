@@ -1,5 +1,5 @@
 /*
-    * singeleton merupakan konsep pattern yang berguna untuk
+    * singleton merupakan konsep pattern yang berguna untuk
       memastikan suatu object hanya memiliki satu instance dengan
       satu titik akses global
     * tidak ada penggunaan constructor dlm pembuatan object
@@ -8,8 +8,8 @@
       langsung
 */
 
-// singeleton object
-object ContohSingeletonObject {
+// singleton object
+object ContohSingletonObject {
     fun borrowBookById(id: Int) {
         println("book with $id has been borrowed")
     }
@@ -98,8 +98,8 @@ fun interface ContohFunctionInterface {
 
 
 fun main() {
-    // menggunakan singeleton object
-    ContohSingeletonObject.borrowBookById(11)
+    // menggunakan singleton object
+    ContohSingletonObject.borrowBookById(11)
 
     // menggunakan companion object
     println(ContohCompanionObject.CONTOH_CONSTANT)
