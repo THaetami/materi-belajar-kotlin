@@ -3,6 +3,8 @@
       object lain termasuk data class,
     * object turunan collection diantaranya list, set dan map yang
       merupakan jenis collection eager evaluation
+    * eager evaluation mengevaluasi seluruh item yang ada pada
+      collection
 */
 
 data class User(val name: String) {
@@ -65,6 +67,7 @@ fun main() {
     arrayList.add("JavaScript") // no error
 
 
+
     /*
         SET
 
@@ -103,6 +106,8 @@ fun main() {
     val numbers = setOf("one", "two", "three")
     val numbers2 = setOf("three", "four")
     println((numbers - numbers2) union (numbers2 - numbers) ) // [one, two, four]
+
+
 
 
     /*
@@ -147,8 +152,60 @@ fun main() {
     println(mapValues) // mengembil seluruh value
 
 
+
     // OPERATOR COLLECTION
     val numCollection = listOf(1, 2, 3, 4, 5, 6)
+
+    /*
+        * FILTER & FILTER NOT, akan menghasilkan list baru dari
+          seleksi berdasarkan kondisi yang diberikan
+        * filterNot() kebalikan dari filter()
+    */
+    val hasilFilter = numCollection.filter { it % 2 == 0 } // menyaring bilangan yang habis dibagi 2
+    println(hasilFilter) // [2, 4, 5]
+
+
+    /*
+        MAP, akan membuat collection baru sesuai perubahan yang
+        akan kita lakukan dari collection sebelumnya
+    */
+    val hasilMap = numCollection.map { it * 5 } // semua angka numCollection akan dikali 5
+    println(hasilMap) // [5, 10, 15, 20, 25, 30]
+
+
+    /*
+        COUNT
+    */
+    println(numCollection.count()) // 6
+
+
+    /*
+        FIND & firstOrNull, untuk mencari item pada sebuah collection, hasilnya
+        adalah item pertama yang sesuai kondisi yang kita tentukan
+    */
+    val hasilFind = numCollection.find { it % 2 == 1 } // mencari angka ganjil pertama
+    println(hasilFind)
+
+    val hasilFirstOrNull = numCollection.firstOrNull { it % 2 == 3 }
+    println(hasilFirstOrNull) // null
+
+
+    /*
+        SUM
+    */
+    val numberList = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    val hasilSum = numberList.sum()
+
+
+    /*
+        SORTED
+    */
+    val kotlinChar = listOf('k', 'o', 't', 'l', 'i', 'n')
+    val ascendingSort = kotlinChar.sorted()
+    val descendingSort = kotlinChar.sortedDescending()
+    println(ascendingSort)
+    println(descendingSort)
+
 
     /*
         FOLD
@@ -216,7 +273,6 @@ fun main() {
     println(chunkedTransform) // [qwe, rty]
 
 
-
     /*
         DISTINCT, menyaring item yang sama di dalam sebuah collection
     */
@@ -247,6 +303,35 @@ fun main() {
         println("${it.key} with value ${it.value}")
     }
 
+
+
+    /*
+        SEQUENCES
+
+        * sequence merupakan collection yang bisa dikategorikan ke
+          dalam lazy evaluation. lazy evaluation hanya akan
+          mengevaluasi item jika benar-benar diperlukan.
+        * memungkinkan pemrosesan data yang efesien dan ekonomis
+          dalam hal sumber daya, terutama ketika kita hanya perlu
+          memproses sebagian kecil dari collection besar atau
+          melakukan operasi2 transformasi yang kompleks.
+    */
+
+    // membuat sequance dengan asSequence()
+    val listForSequence = (1..1000).toList()
+    val contohSequence = listForSequence.asSequence().filter { it % 5 == 0 }.map { it * 2 }.first()
+    println(contohSequence)
+
+    // membuat sequance dengan sequenceOf()
+    val contohSequenceLain = sequenceOf(1, 2, 3, 4, 5)
+    val squaredNumbers = contohSequenceLain
+        .map { it * it }
+        .filter { it > 10 }
+    squaredNumbers.forEach { println(it) }
+
+    // membuat sequance dengan generateSequence()
+    val sequenceNumber = generateSequence(1) { it + 1 }
+    sequenceNumber.take(5).forEach { print("$it ") }
 }
 
 data class Item(val key: String, val value: Any)
