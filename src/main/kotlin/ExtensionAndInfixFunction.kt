@@ -22,6 +22,14 @@ fun Person.greeting(): String{
     return "Hello, my name is $name"
 }
 
+// contoh extension function, menambahkan function firstAndLast() pada object String
+fun String.firstAndLast(): Map<String, Char>{
+    return mapOf(
+        "first" to first(),
+        "last" to last()
+    )
+}
+
 
 
 /*
@@ -37,6 +45,11 @@ fun Int.plusThree(): Int {
 // extension properties
 val Int.slice: Int
     get() = this / 2
+
+val String.firstAndLast: Map<String, Char>
+    get() = mapOf(
+        "first" to first(), "last" to last()
+    )
 
 
 /*
@@ -68,11 +81,17 @@ fun main() {
     println("${person2.name} is an adult: ${person2.isAdult}") // Output: Alice is an adult: false
     println(person1.greeting())
 
+    val hasilExtentionFun = "Bahroel".firstAndLast()
+    println(hasilExtentionFun["last"])
+
+
 
     // contoh penggunaan lain | extension function
     println(10.plusThree())
-    // contoh penggunaan lain | extension propertis
     println(10.slice)
+    val hasilExtensionProp = "Tatang haetami".firstAndLast
+    println(hasilExtensionProp["first"])
+
 
 
 
