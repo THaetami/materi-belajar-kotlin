@@ -40,10 +40,11 @@ val contohLambda = { awal: Int, akhir: Int -> awal * akhir }
 
     * sebuah function yang menggunakan function lainnya sebagai
       parameter, menjadikan tipe kembalian, ataupun ke duanya
+    * sebuah extension function dari sebuah object yang
+      menggunakan lambda sebagai argumen
 */
 // dengan 1 parameter
 var sum: (Int) -> Int = {value -> value + value}
-
 
 inline fun printResult(value: Int, sum: (Int) -> Int) {
     /*
@@ -62,6 +63,15 @@ fun printName(value: String, name: (String) -> String) {
     println(name(value))
 }
 
+fun String.customFunction(action: (Char) -> Unit) {
+    /*
+        extension function dari sebuah object yang
+        menggunakan lambda sebagai argumen
+    */
+    for (char in this) {
+        action(char)
+    }
+}
 
 
 /*
@@ -121,8 +131,13 @@ fun main() {
         "$first $value"
     }
 
+    val myString = "Hello, World!"
+    myString.customFunction {
+        println(it)
+    }
 
-    // penggunnaan lambda with receiver
+
+        // penggunnaan lambda with receiver
     val message = contohLambdaWithReceiver {
         append("Hello")
         append("Tatang")
