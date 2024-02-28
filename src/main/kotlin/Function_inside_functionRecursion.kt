@@ -10,6 +10,7 @@
 fun functionUtama(valueA: Int, valueB: Int, valueC: Int): Int {
 
     fun contohInnerFunction(value: Int) {
+        // untuk memvalidasi setiap parameter (valueA, valueB dan valueC)
         if (value == 0) {
             throw IllegalArgumentException("value must be better than 0")
         }

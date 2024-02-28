@@ -182,7 +182,7 @@ fun main() {
 
             val length = objectName?.length ?: 0 * 2
         */
-        val objectNullable: String? = "null"
+        val objectNullable: String? = null
         val length = (objectNullable?.takeUnless { it == "null" }?.length ?: 0) + 2
         println("length: $length")
         objectNullable?.let {
