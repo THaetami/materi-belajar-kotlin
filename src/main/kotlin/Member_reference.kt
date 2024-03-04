@@ -33,7 +33,7 @@ fun main() {
     /*
         Property References
 
-        selain digunakan untuk mereferensikan sebuah function
+        selain digunakan untuk mereferensikan sebuah function,
         operator `::` dpt digunakan untuk mereferensikan sebuah
         properti, sehingga kita bisa mengakses apa yang menjadi
         bagian dari properti tersebut seperti nama, fungsi

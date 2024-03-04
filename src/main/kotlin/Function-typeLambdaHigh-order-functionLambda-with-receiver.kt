@@ -3,10 +3,10 @@
 
     * dengan menggunakan typealias, kita dapat memberikan nama
       alternatif atau alias pada tipe data function yang
-       memiliki karakteristik serupa, khususnya terkait tipe
+      memiliki karakteristik serupa, khususnya terkait tipe
       parameter dan tipe kembalian.
-    * anda dapat memberikan nama yang deskriptif pada
-      function type menggunakan 'typealias'. kemudian, anda
+    * kita dapat memberikan nama yang deskriptif pada
+      function type menggunakan 'typealias'. kemudian, kita
       bisa menggunakan nama tersebut sebagai "tipe data"
       saat mendeklarasikan fungsi lain,
 */
@@ -137,7 +137,7 @@ fun main() {
     }
 
 
-        // penggunnaan lambda with receiver
+    // penggunnaan lambda with receiver
     val message = contohLambdaWithReceiver {
         append("Hello")
         append("Tatang")

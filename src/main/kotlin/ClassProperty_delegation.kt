@@ -1,15 +1,15 @@
 import kotlin.reflect.KProperty
 
 class ContohClassDelegation {
-    // variable value bisa diganti tipe data "any" agar bisa menggunakan berbagai tipe data
-    private var value: String = "Default"
+    // variable value bertipe "Any" agar bisa menggunakan berbagai tipe data
+    private var value: Any = "Default"
 
-    operator fun getValue(classRef: Any?, property: KProperty<*> ) : String {
+    operator fun getValue(classRef: Any?, property: KProperty<*> ) : Any {
         println("Fungsi ini sama seperti getter untuk properti ${property.name} pada class $classRef")
         return value
     }
 
-    operator fun setValue(classRef: Any?, property: KProperty<*>, newValue: String){
+    operator fun setValue(classRef: Any?, property: KProperty<*>, newValue: Any){
         println("Fungsi ini sama seperti setter untuk properti ${property.name} pada class $classRef")
         println("Nilai ${property.name} dari: $value akan berubah menjadi $newValue")
         value = newValue
@@ -17,15 +17,16 @@ class ContohClassDelegation {
 }
 
 class ContohClassPenerimaDelegationPertama {
-    var name: String by ContohClassDelegation()
+    var name: Any by ContohClassDelegation()
+    var age: Any by ContohClassDelegation()
 }
 
 class ContohClassPenerimaDelegationKedua {
-    var name: String by ContohClassDelegation()
+    var name: Any by ContohClassDelegation()
 }
 
 class ContohClassPenerimaDelegationKetiga {
-    var name: String by ContohClassDelegation()
+    var name: Any by ContohClassDelegation()
 }
 
 // contoh primary constructor
@@ -65,15 +66,16 @@ class ContohClassWithInit (pName: String, pWeight: Double, pAge: Int, pIsMammal:
 fun main() {
     val contohPertama = ContohClassPenerimaDelegationPertama();
     contohPertama.name = "Dimas"
-    println(contohPertama.name)
+    contohPertama.age = 26
+    println("contoh pertama penerima delegation class, dengan nama: ${contohPertama.name} dan umur: ${contohPertama.age}")
 
     val contohKedua = ContohClassPenerimaDelegationKedua();
     contohKedua.name = "Kanjeng"
-    println(contohKedua.name)
+    println("contoh kedua penerima delegation class: ${contohKedua.name}")
 
     val contohKetiga = ContohClassPenerimaDelegationKetiga();
-    contohKedua.name = "Pranowo"
-    println(contohKetiga.name)
+    contohKetiga.name = "Pranowo"
+    println("contoh ketiga penerima delegation class: ${contohKetiga.name}")
 
     // contoh penggunaan primary constructor
     val contohPrimary = ContohPrimaryConstructor("Boby", 3.4, 40, true)

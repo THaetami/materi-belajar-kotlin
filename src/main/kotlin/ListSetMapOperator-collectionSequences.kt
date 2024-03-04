@@ -81,7 +81,7 @@ fun main() {
 
     // immutable set
     val contohSet = setOf(1, 2, 4, 5, 4, 3)
-    println(contohSet) // tidak akan ada angka duplikat
+    println(contohSet) // [1, 2, 3, 4, 5], tidak akan ada angka duplikat
 
     // mutable set
     val mutableSet = mutableSetOf(1, 2, 4, 2, 1, 5)
@@ -264,7 +264,7 @@ fun main() {
         kecil menjadi array
     */
     val word = "QWERTY"
-    val chunked = word.chunked(3)
+    val chunked = word.chunked(4)
     println(chunked) // [QWE, RTY]
 
     val chunkedTransform = word.chunked(3) {

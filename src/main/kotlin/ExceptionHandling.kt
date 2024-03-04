@@ -6,7 +6,7 @@ fun main() {
     lateinit var someMustNotNullValue: String
 
     try {
-        someMustNotNullValue = someNullValue!!
+        someMustNotNullValue = someNullValue!! // `!!` (non-null assertion operator) mengasumsikan jika bernilai null maka error NullPointerException
         println(someMustNotNullValue)
     } catch (e: Exception) {
         someMustNotNullValue = "Nilai String Null"
