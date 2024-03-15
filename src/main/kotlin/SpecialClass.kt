@@ -83,6 +83,7 @@ class House {
       static dan final sehingga kita tidak dapat mengubahnya
       setelah dideklarasikan.
 */
+//contoh enum dengan constructor
 enum class Color(val value: Int) {
     RED(0xFF0000),
     GREEN(0x00FF00),

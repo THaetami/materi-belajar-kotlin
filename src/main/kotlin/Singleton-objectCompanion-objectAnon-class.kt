@@ -71,7 +71,7 @@ class ContohCompanionObject {
     ialah class yang tak memiliki nama dan biasanya digunakan
     untuk membuat instance dari suatu class atau interface
     tanpa perlu mendeklarasi kelas baru secara explisit.
-    Anon class apat dibuat dengan keyword 'object'
+    Anon class dapat dibuat dengan keyword 'object'
 */
 // untuk contoh anon class
 interface IFly {

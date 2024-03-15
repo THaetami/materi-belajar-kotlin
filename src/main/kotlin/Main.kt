@@ -1,5 +1,23 @@
 import  kotlin.random.Random
 
+/*
+    * lateinit keyword yang ditambahkan sebelum variable
+      untuk membuat proses inisialisasi bisa ditunda
+    * lateinit hanya bisa digunakan pada variable `var`
+ */
+lateinit var cont: String
+
+/*
+    lazy keyword digunakan untuk menunda inisialisasi suatu
+    variable, akan diinisialisasika ketika benar2 digunakan
+    sehingga tidak akan memakan memori diawal ketika program
+    berjalan
+*/
+val contohLazyKey: String by lazy {
+    "Tatang Haetami"
+}
+
+
 // Class
 class Animal() {
     var name: String = "Kucing"
@@ -16,50 +34,76 @@ class Animal() {
     }
 }
 
-// property accessor
-// membuat function setter dan getter manual
+
+/*
+    Property accessor
+
+    membuat function setter dan getter manual,
+    merupakan langkah untuk menerapkan prinsip enkapsulasi,
+    dengan getter dan setter kita dapat mengontrol akses
+    ke properti private tersebut, Ini membantu menjaga
+    keamanan dan integritas data, serta mencegah perubahan
+    yang tidak diinginkan.
+*/
 class ContohSeterGetter {
-    var name: String = "Dicoding miaw"
+    private var name: String = "Dicoding miaw"
         get() {
             println("Fungsi getter terpanggil")
             return  field
         }
 
-        set(value) {
+        set(value) { // properti dengan keyword `val` tidak bisa membuat setter
             println("Fungsi setter terpanggil")
-            field = value
+            if (value.isNotBlank()) {
+                field = value
+            }
         }
 }
 
-// lateinit keyword yang ditambahkan sebelum variable untuk membuat proses inisialisasi bisa ditunda
-lateinit var cont: String
-
-/* lazy keyword digunakan untuk menunda inisialisasi suatu
-    variable, akan diinisialisasika ketika benar2 digunakan
-    sehingga tidak akan memakan memori diawal ketika program
-    berjalan
-* */
-val contohLazyKey: String by lazy {
-    "Tatang Haetami"
-}
-
-
 fun main(args: Array<String>) {
+    // menggunakan lazy keyword
+    println(contohLazyKey)
+
+    /*
+        Lateinit
+
+        * lateinit keyword yang ditambahkan sebelum variable
+          untuk membuat proses inisialisasi bisa ditunda
+        * isInitialized untuk memeriksa apakah variable telah
+          diinisialisasikan
+    */
+    if (::cont.isInitialized) // variable cont terdapat diatas
+        println(cont.length)
+    else
+        println("not initialized")
+    cont  = "Tatang"
+    println(cont)
+
+
+    // penggunaan class
+    val cat = Animal();
+    println("Nama: ${cat.name}, Berat: ${cat.weight}, Umur: ${cat.age}, Mamalia: ${cat.isMamal}")
+    cat.eat()
+    cat.sleep()
+
+
+    // string
     var name = "Tatang"
     val ahad = 1
     val isnani = 2
-    println(contohLazyKey)
-
     println("Hello my name is $name = ${ahad + isnani}")
     println(name)
     println(if (ahad > isnani) "Always true" else "Always false")
 
+
+    // null pointer exception
     val text: String? = null
     println(text?.length)
 
     val str: String? = null
     val textLength = str?.length ?: 7
     println(textLength)
+
 
     // function
     fun setUser(name: String, age: Int): String {
@@ -85,7 +129,6 @@ fun main(args: Array<String>) {
         8 -> "value is 8"
         else -> "value cannot be reached"
     }
-
     println(stringOfValue)
 
     val angka = 90
@@ -95,10 +138,8 @@ fun main(args: Array<String>) {
         !in jarak -> println("value is outside the range")
     }
 
-
     // menangkap subjek dari when expression di dalam sebuah variable
     fun getRegisterNumber() = Random.nextInt(100)
-
     val registerNumber = when(val regis = getRegisterNumber()){
         in 1..50 -> 50 * regis.toInt()
         in 51..100 -> 100 * regis.toInt()
@@ -112,10 +153,13 @@ fun main(args: Array<String>) {
         println("looping while ${counter++}")
     }
 
+
+    // do while
     var conters = 8
     do {
         println("looping do while ${conters++}")
     } while (conters <= 7)
+
 
     // range
     var rangeInt = 1..10
@@ -127,6 +171,7 @@ fun main(args: Array<String>) {
         print("$value ")
     }
     println(rangeInts.step)
+
 
     // looping for
     for ((index, value) in rangeInts.withIndex()) {
@@ -140,7 +185,8 @@ fun main(args: Array<String>) {
         print(i)
     }
 
-    // label keyword "@" untuk menamai suatu loop
+
+    // label, dengan keyword "@" untuk menamai suatu loop atau expression
     loop@ for (i in 1..10) {
         println("Outside loop")
 
@@ -155,25 +201,10 @@ fun main(args: Array<String>) {
         }
     }
 
-    val cat = Animal();
-    println("Nama: ${cat.name}, Berat: ${cat.weight}, Umur: ${cat.age}, Mamalia: ${cat.isMamal}")
-    cat.eat()
-    cat.sleep()
-
-    // lateinit keyword yang ditambahkan sebelum variable untuk membuat proses inisialisasi bisa ditunda
-    // isInitialized untuk memeriksa apakah variable telah diinisialisasikan
-
-    if (::cont.isInitialized) // variable cont terdapat diatas
-        println(cont.length)
-    else
-        println("not initialized")
-    cont  = "Tatang"
-    println(cont)
 
 
 
-
-
+    // soal list collection
     val total = listOf(1, 2, 3, 4, 5, 6)
     val result1 = total.take(5)
     println(result1) // [1, 2, 3, 4, 5]
@@ -183,10 +214,6 @@ fun main(args: Array<String>) {
     println(result3) // [3, 4, 5]
     val result4 = result3.dropLast(2)
     println(result4) // [3]
-
-
-
-
 
 }
 

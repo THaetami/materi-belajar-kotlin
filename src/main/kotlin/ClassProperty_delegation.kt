@@ -1,5 +1,50 @@
 import kotlin.reflect.KProperty
 
+/*
+    Delegation
+
+    * delegation sederhananya adalah proses meneruskan propertis
+      atau function ke object lain
+*/
+// contoh pertama | delegation
+interface Base {
+    fun sayHello(name: String)
+    fun sayGoodBy(name: String)
+}
+
+class MyBase: Base {
+    override fun sayHello(name: String) {
+        println("Hello $name")
+    }
+
+    override fun sayGoodBy(name: String) {
+        println("Good by $name")
+    }
+}
+
+// membuat delegation dengan manual
+//class MyBaseDelegate(val base: Base): Base {
+//    override fun sayHello(name: String) {
+//        base.sayHello(name)
+//    }
+//
+//    override fun sayGoodBy(name: String) {
+//        base.sayGoodBy(name)
+//    }
+//}
+
+// membuat delegation otomatis dengan bantuan keyword `by`
+class MyBaseDelegate(val base: Base): Base by base // semua function didelegasikan
+
+// contoh salah satu function saja yang didelegasikan, yakni function sayHello() yang tidak didelegasikan
+//class MyBaseDelegate(val base: Base): Base by base {
+//    override fun sayHello(name: String) {
+//        println("Hello $name")
+//    }
+//}
+
+
+// contoh dua, membuat delegation untuk setter dan getter
 class ContohClassDelegation {
     // variable value bertipe "Any" agar bisa menggunakan berbagai tipe data
     private var value: Any = "Default"
@@ -64,6 +109,14 @@ class ContohClassWithInit (pName: String, pWeight: Double, pAge: Int, pIsMammal:
 
 
 fun main() {
+    // menggunakan contoh pertama | delegation
+    val base = MyBase()
+    base.sayHello("Eko");
+    val baseDelegate =MyBaseDelegate(base)
+    baseDelegate.sayHello("tatang")
+    baseDelegate.sayGoodBy("Roni")
+
+    // menggunakan contoh dua | delegation
     val contohPertama = ContohClassPenerimaDelegationPertama();
     contohPertama.name = "Dimas"
     contohPertama.age = 26
@@ -76,6 +129,7 @@ fun main() {
     val contohKetiga = ContohClassPenerimaDelegationKetiga();
     contohKetiga.name = "Pranowo"
     println("contoh ketiga penerima delegation class: ${contohKetiga.name}")
+
 
     // contoh penggunaan primary constructor
     val contohPrimary = ContohPrimaryConstructor("Boby", 3.4, 40, true)

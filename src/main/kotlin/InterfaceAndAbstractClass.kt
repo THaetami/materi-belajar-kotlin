@@ -1,15 +1,16 @@
 /*
-    1. abstract adalah konsep dimana anda menyembunyikan detail
-    tertentu dari implementasi suatu object dan hanya
-    menunjukkan fungsionalitas yang relevan atau penting bagi
-    pengguna object tersebut.
+    1. abstract adalah konsep dimana anda menyembunyikan
+       detail tertentu dari implementasi suatu object dan
+       hanya menunjukkan fungsionalitas yang relevan atau
+       penting bagi pengguna object tersebut.
 
-    2. interface merupakan suatu konsep sifat umum yang nantinya
-    digunakna oleh suatu class agar dapat memiliki sifat tsb.
+    2. interface merupakan suatu konsep sifat umum yang
+       nantinya digunakna oleh suatu class agar dapat
+       memiliki sifat tsb.
 
-    3. tujuan interface ini hanya untuk diimplementasikan oleh
-    sebuah class, ketika diimplementasikan harus menggunakan
-    keyword override
+    3. tujuan interface ini hanya untuk diimplementasikan
+       oleh sebuah class, ketika diimplementasikan harus
+       menggunakan keyword override
  */
 
 // contoh abstract class
@@ -24,13 +25,13 @@ abstract class ContohAbstractClass(var name: String, var weight: Double, var age
 }
 
 // contoh interface
-interface Ifly {
+interface Fly {
     fun fly()
     val numberOfWings: Int
 }
 
 // mengimplementasikan interface
-class Bird(override  val numberOfWings: Int) : Ifly {
+class Bird(override  val numberOfWings: Int) : Fly {
     override fun fly() {
         if (numberOfWings > 0) println("flying with $numberOfWings wings")
         else println("I flying without wings")
@@ -58,7 +59,8 @@ class Bird(override  val numberOfWings: Int) : Ifly {
  */
 abstract class Hewan {
     //nilai default tidak diizinkan
-    abstract val usia: Int //harus di-overridden
+    abstract val usia: Int // properti harus di-overridden
+    abstract fun run(): Unit // function harus di-overridden
     //nilai default diizinkan
     open val sedangMakan = true //opsional untuk di-overridden
     val sedangBernapas = true //tidak dapat di-overridden
@@ -78,12 +80,15 @@ interface IMinum {
     interface JBerenang, IMinum
  */
 
-class Unta : Hewan(), JBerenang, IMinum {
-    override val usia: Int = 7   // properti ini harus ada, coba hapus
-    override val sedangMakan = true // properti ini opsional, coba hapus
-    override val jumlahKaki = 2 // properti ini harus ada, coba hapus
-    override fun berenang() { // metode ini harus ada, coba hapus
-        println("Unta bisa berenang")
+class Unta() : Hewan(), JBerenang, IMinum {
+    override val usia: Int = 7   // properti class abstract Hewan() ini, harus ada, coba hapus
+    override fun run() {
+        println("Unta run") // function dari class abstract Hewan(), harus ada, coba hapus
+    }
+    override val sedangMakan = true // properti dari class abstract Hewan() ini opsional, coba hapus
+    override val jumlahKaki = 2 // properti dari interface JBerenang ini harus ada, coba hapus
+    override fun berenang() { // function dari interface JBerenang ini harus ada, coba hapus
+        println("Unta bisa berenang dengan jumlah kaki ${jumlahKaki}")
     }
 }
 
