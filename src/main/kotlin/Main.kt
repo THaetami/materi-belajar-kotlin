@@ -1,3 +1,4 @@
+import com.dicoding.oop.utils.sayHello
 import  kotlin.random.Random
 
 /*
@@ -60,6 +61,35 @@ class ContohSeterGetter {
         }
 }
 
+// mencegah null pointer exception
+data class Friend(val name: String)
+fun cegahNullException(friend: Friend) {
+
+    /*
+        dengan if
+    */
+    // if (friend != null) {
+    //    println("Hello ${friend.name}")
+    // }
+
+    /*
+        dengan `?`
+    */
+    // println("Hello ${friend?.name}")
+
+    /*
+        dengan elvis operator `?:`
+    */
+    // val name = friend?.name ?: "Friend"
+
+    /*
+        dengan non-null assertion operator `!!`
+    */
+    val notNullFriend = friend!!
+    val name = notNullFriend.name
+    println("hello $name")
+}
+
 fun main(args: Array<String>) {
     // menggunakan lazy keyword
     println(contohLazyKey)
@@ -96,13 +126,9 @@ fun main(args: Array<String>) {
     println(if (ahad > isnani) "Always true" else "Always false")
 
 
-    // null pointer exception
-    val text: String? = null
-    println(text?.length)
-
-    val str: String? = null
-    val textLength = str?.length ?: 7
-    println(textLength)
+    // penggunaan cegahNullException() | mencegah null pointer exception
+    cegahNullException(Friend("tatang"))
+    // cegahNullException(null) // error
 
 
     // function

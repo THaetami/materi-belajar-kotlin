@@ -1,4 +1,26 @@
+/*
+    Exception
+
+    * error dalam kotlin direpresentasikan dengan Exception,
+      dimana semua tipe data error pasti class turunan dari
+      Throwable
+    * membuat error dengan keyword `throw` diikuti object errornya
+*/
+// membuat exception
+class ValidationException(message: String): Throwable(message)
+
+fun sayHello(name: String) {
+    if (name.isBlank()) {
+        throw ValidationException("Name is blank")
+    }
+    println("Hello $name")
+}
+
 fun main() {
+    // penggunaan sayHello() | membuat exception
+    sayHello("") // error 'name is blank'
+
+
     /*
         try-catch
     */
