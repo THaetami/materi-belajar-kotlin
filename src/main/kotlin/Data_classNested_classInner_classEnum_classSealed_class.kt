@@ -1,3 +1,5 @@
+import javax.security.sasl.AuthorizeCallback
+
 /*
     Special Class yang disediakan oleh kotlin:
     1. Data class dirancang khusus untuk menyimpan data. yang memiliki
@@ -36,6 +38,17 @@ data class ContohDataClass(val name: String, val age: Int) {
         println("my name is $name, i am $age years old")
     }
 }
+
+/*
+    Destructuring lambda parameter | materi data class
+*/
+data class Login(val username: String, val password: String)
+
+// function dengan lambda (callback)
+fun login(login: Login, callback: (Login) -> Boolean): Boolean {
+    return callback(login)
+}
+
 
 
 /*
@@ -144,8 +157,9 @@ fun main() {
     /*
         Destructuring Declaration
 
-        fungsi componentN(), biasa digunakan untuk menguraikan
-        sebuah object menjadi beberapa properti yang dimilikinya
+        * fungsi componentN(), biasa digunakan untuk menguraikan
+          sebuah object menjadi beberapa properti yang dimilikinya
+        * membuat multiple variable dari sebuah object
     */
     val component1 = dataClass.component1()
     val compenent2 = dataClass.component2()
@@ -156,11 +170,32 @@ fun main() {
     val (name, age) = dataClass
     println(name)
     println(age)
+        /*
+           destructuring note:
+           ganti dengan underscore jika salah satu variable
+           tidak dibutuhkan
+        */
+
+    // penggunaan Destructuring lambda parameter
+    val login = Login("tatang", "1234") // menggunakan data class Login
+
+    // pemanggilan function login tanpa mendestruring lambda parameter
+    login(login) { login ->
+        login.username == "tatang" && login.password == "1234"
+    }
+
+    // memanggil function login dengan mendestructuring lambda paramete(username, password)
+    println("hasil login fun")
+    login(login) { (username, password) ->
+        username == "tatang" && password == "1234"
+    }
+
 
     // menggunakan nested class
     val house = House()
     val room = house.Room()
     room.measureRoomArea()
+
 
     /*
         Enum
