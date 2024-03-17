@@ -1,7 +1,7 @@
-import com.dicoding.oop.utils.sayHello
-import com.dicoding.oop.utils.PI
-import com.dicoding.oop.utils.factorial
-import com.dicoding.oop.utils.pow
+import com.belajar.oop.utils.sayHello
+import com.belajar.oop.utils.PI
+import com.belajar.oop.utils.factorial
+import com.belajar.oop.utils.pow
 
 /*
      jika kita menggunakan seluruh fungsi atau variabel dalam

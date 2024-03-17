@@ -158,6 +158,7 @@ fun main() {
     val personAlso = Rakyat("Jane", 30).also {
         println("also: Initializing ${it.name}, age ${it.age}")
     }
+    println(personAlso)
 
 
     /*
@@ -205,7 +206,11 @@ fun main() {
         run | lambda receiver (this)
 
         Menjalankan blok kode pada objek dan
-        mengembalikan hasil blok kode tersebut
+        mengembalikan hasil blok kode tersebut, alias sama seperti
+        function `let`, yang membedakan run function tidak ada
+        parameter pada lambdanya, sehingga kita tidak bisa
+        mengakses reference objek menggunakan keyword it tapi
+        dengan this
     */
     val personRun = Rakyat("Alice", 28).run {
         println("run: Initializing $name, age $age")

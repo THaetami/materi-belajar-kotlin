@@ -1,4 +1,4 @@
-import com.dicoding.oop.utils.sayHello
+import com.belajar.oop.utils.sayHello
 import  kotlin.random.Random
 
 /*

@@ -1,4 +1,4 @@
-package com.dicoding.oop.utils
+package com.belajar.oop.utils
 
 fun sayHello() = println("Hello from com.dicoding.oop.utils")
 
