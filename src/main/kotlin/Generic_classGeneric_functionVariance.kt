@@ -11,12 +11,10 @@
 // contoh class generic
 data class Data<T>(val data: T)
 
-
 // contoh interface generic
 interface ListContoh<T> { // <T> disebut type parameter
     operator fun get(index: Int) : T
 }
-
 
 // class yang menggunakan interface generic
 class LongList : ListContoh<Long> {
@@ -24,7 +22,6 @@ class LongList : ListContoh<Long> {
         return this[index]
     }
 }
-
 
 // class generic yang menggunakan interface generic
 class ArrayList<T>(vararg items: T) : ListContoh<T> {
@@ -68,13 +65,22 @@ class Function(val name: String) {
 
 
 /*
-    generic pada extension function, type param ditulis sebelum
+    generic extension function, type param ditulis sebelum
     nama function
  */
+// contoh pertama | generic extension function
+class DataExtension<T>(val data: T)
+fun DataExtension<String>.print() { // extension function `print()`
+    val data: String = this.data
+    println(data)
+}
+
+// contoh kedua | generic extension function
+public fun <T> List<T>.slice(indices: Iterable<Int>): List<T> = indices.mapNotNull(this::getOrNull)
+
 //public fun <T> List<T>.slice(indices: Iterable<Int>): List<T>{
 //    return indices.mapNotNull { this.getOrNull(it)}
 //}
-public fun <T> List<T>.slice(indices: Iterable<Int>): List<T> = indices.mapNotNull(this::getOrNull)
 
 
 
@@ -97,12 +103,10 @@ class ListNumber<T : Number> : ListContoh<T>{
     }
 }
 
-
 // untuk contoh constraint type parameter
 open class Wargi
 class RukunTetangga: Wargi()
 class Lurah: Wargi()
-
 
 // contoh kedua | Constraint Type Parameter
 class Kelurahan<T: Wargi>(val wargi: T)
@@ -145,7 +149,7 @@ fun <T> List<T>.sumNumber(): T where T : Number, T : Comparable<T> {
       dalam penggunaannya.
 */
 
-// untuk contoh variant dan invariant
+// untuk contoh variant
 abstract class Vehicle(wheel: Int)
 class ElectricCar(val speed: Int) : Vehicle(4)
 data class MotorCycle(val speed: Int) : Vehicle(2)
@@ -164,12 +168,6 @@ data class MotorCycle(val speed: Int) : Vehicle(2)
 */
 class Invariant<T>(val data: T)
 
-
-
-/*
-    Variance dalam konteks generic memiliki dua jenis utama:
-    covariant dan contravariant.
-*/
 
 /*
     Covariant
@@ -227,6 +225,69 @@ class Contravariant <in T> {
      }
 }
 
+
+
+/*
+    Type Projection
+
+    * type projection yaitu menambahkan informasi covariant atau
+      contravariant di parameter function, ini memaksa isi function
+      untuk melakukan pengecekan
+    * jika covariant, kita tidak boleh mengubah data generic object
+    * jika contravariant, kita tidak boleh mengambil data generic
+      object
+*/
+class Container<T>(var data: T) // invariant
+fun copyContainer(from: Container<out Any>, to: Container<Any>) {
+    /*
+        dengan adanya `out` maka from adalah covariant sehingga
+        tidak bisa mengubah valuenya (variable data)
+     */
+    to.data = from.data // mensubtitut dari child ke parent `Any`
+}
+
+
+
+/*
+    Star Projection
+
+    sebuah teknik yang digunakan dalam kotlin untuk mengabaikan tipe
+    parameter generic pada saat penggunaan tertentu. Ini berguna
+    ketika kita ingin menggunakan struktur data generik tanpa harus
+    memperhatikan tipe sebenarnya dari tipe parameter generik tersebut
+
+    * star projection bisa dibuat dengan mengganti generic parameter
+      type dengan karakter asterik `*`
+    * contohnya saat kita hanya ingin mengetahui jumlah/length suatu
+      collection tanpa peduli jenis tipe data dalam collection
+      tersebut
+*/
+fun displayLength(array: Array<*>) {
+    println("Length Array is ${array.size}")
+}
+
+
+
+/*
+    Comparable interface
+
+    * sebuah interface yang digunakan untuk memberikan kemampuan
+      perbandingan object. Ketika sebuah class mengimplement
+      interface `Comparable` itu berarti object dari class
+      tersebut dapat dibandingkan dengan object lain dari
+      tipe yang sama
+    * interface `Comparable` memiliki satu method, yaitu
+      `compareTo`, yang wajib diimplementkan oleh class
+      yang menggunakannya
+*/
+class ComparableInterface(val name: String, val quantity: Int): Comparable<ComparableInterface> {
+    override fun compareTo(other: ComparableInterface): Int { //mengimplement method dari interface Comparable
+       // return this.quantity - other.quantity
+        return quantity.compareTo(other.quantity)
+    }
+}
+
+
 fun main() {
     // penggunaan class generic
     val dataString = Data<String>("tatang")
@@ -234,7 +295,6 @@ fun main() {
 
     val dataInt = Data<Int>(12)
     val valueInt = dataInt.data
-
 
 
     // penggunaan class generic yang menggunakan interface generic
@@ -247,7 +307,6 @@ fun main() {
     println(lastString)
 
 
-
     // penggunaan multiple parameter type
     val myData = MyData<String, Int>("tatang", 10)
     println(myData.firstData)
@@ -255,16 +314,21 @@ fun main() {
     println(myData.printData())
 
 
-
     // menggunakan generic function, tanpa type param juga bisa -> sayHello(12)
     val function = Function("joko")
     function.sayHello<String>("tatang") // function sayHello() dengan String
     function.sayHello<Int>(12) // function sayHello() dengan Int
 
-    // menggunakan generic extension function
+
+    // contoh pertama | generic extension function
+    val dataExtensionString = DataExtension("data")
+    val dataExtensionInt = DataExtension(1)
+    // dataExtensionInt.print() // error karna function extension `print()` memiliki type parameter string
+    dataExtensionString.print()
+
+    // contoh kedua | generic extension function
     val numbers = (1..100).toList()
     println(numbers.slice(1..10))
-
 
 
     // contoh pertama | Constraint Type Parameter
@@ -289,7 +353,6 @@ fun main() {
     // names.sumNumber() // error : inferred type String is not a subtype of Number
 
 
-
     // contoh variant
     val car = ElectricCar(200)
     val motorCycle = MotorCycle(100)
@@ -308,6 +371,7 @@ fun main() {
     println(vehicle.speed)
 
 
+
     // contoh invariant
     val invariantString:  Invariant<String> = Invariant("tatang")
     // val invariantAny: Invariant<Any> = invariantString // error, tidak bisa melakukan seperti `polymorphisme` | tidak bisa mensubtitut
@@ -315,13 +379,37 @@ fun main() {
 
     // penggunaan covariant
     val covariantString = Covariant<String>("tatang")
-    val covariantAny: Covariant<Any> = covariantString // mensubtitut dari Covariant<String> ke Covariant<Any> karna Any itu parent class dari String
+    val covariantAny: Covariant<Any> = covariantString // mensubtitut dari child Covariant<String> ke parent Covariant<Any>
     covariantAny.data()
 
 
     // penggunaan contravariant
     val contravarianAny: Contravariant<Any> = Contravariant()
-    val contravariantString: Contravariant<String> = contravarianAny // mensubtitut dari Covariant<Any> ke Covariant<String> karna String itu child class dari Any
+    val contravariantString: Contravariant<String> = contravarianAny // mensubtitut dari parent Covariant<Any> ke child Covariant<String>
     contravariantString.sayHello("tatang")
+
+
+    // penggunaan type projection
+    val data1 = Container(200)
+    val data2: Container<Any> = Container("tatang")
+    copyContainer(data1, data2) // argument `data1 = convariant` | `data2 = invariant`
+    println("data1 = ${data1.data}, data2 = ${data2.data}")
+
+
+    // penggunaan star projection
+    val arrayInt = arrayOf(1, 2, 3, 4, 5, 6, 7)
+    val arrayString = arrayOf("tatang", "hae", "tami")
+    displayLength(arrayInt) // function tidak memedulikan tipe data
+    displayLength(arrayString) // function tidak memedulikan tipe data
+
+
+    // penggunaan comparable interface
+    val com1 = ComparableInterface("tami", 23)
+    val com2 = ComparableInterface("bayu", 20)
+    println(com1 > com2)
+    println(com1 < com2)
+    println(com1 >= com2)
+    println(com1 <= com2)
+
 
 }
