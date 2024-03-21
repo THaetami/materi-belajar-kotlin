@@ -72,7 +72,6 @@ infix fun Int.sum(value: Int): Int {
     return this + value
 }
 
-
 fun main() {
     // menggunakan extension properties dan function
     val person1 = Person("John", 25)
