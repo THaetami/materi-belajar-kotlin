@@ -94,13 +94,13 @@ fun main() {
     contohOverloading.eat("Buah jeruk", 20.9)
 
     // contoh penggunaan inheritance
-    val childClass = ChildClass("Dicoding Miaw", 3.2, 2, true, "Brown", 4)
+    val childClass = ChildClass("Meong Miaw", 3.2, 2, true, "Brown", 4)
     childClass.playWithHuman()
     childClass.eat()
     childClass.sleep()
 
-    val dicodingCat = Cat("Dicoding Miaw")
-    dicodingCat.eat()
+    val junedCat = Cat("Meong Miaw")
+    junedCat.eat()
 
     // menggunakan super constructor
     val premiumCustomer = PremiumCustomer("tatang")

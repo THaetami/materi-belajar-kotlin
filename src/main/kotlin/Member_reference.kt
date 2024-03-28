@@ -1,5 +1,4 @@
 
-
 var message = "Tatang Haetami"
 
 class MyClass {
@@ -56,12 +55,12 @@ fun main() {
     println(myObject::classMessage.get())
 
 
-        /*
-            note:
+    /*
+        note:
 
-            jika properti menggunakan keyword `val` maka
-            fungsi setter tidak akan bisa digunakan
-        */
+        jika properti menggunakan keyword `val` maka
+        fungsi setter tidak akan bisa digunakan
+    */
 
 
 }

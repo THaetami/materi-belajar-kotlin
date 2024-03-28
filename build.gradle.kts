@@ -1,11 +1,8 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.7.10"
-    application
+    kotlin("jvm") version "1.9.22"
 }
 
-group = "com.dicoding.kotlin"
+group = "materi-cotlin-pemula"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -13,19 +10,17 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+    // reflection
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
+    // kotlin coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1-Beta")
 }
 
 tasks.test {
     useJUnitPlatform()
 }
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-application {
-    mainClass.set("MainKt")
+kotlin {
+    jvmToolchain(21)
 }

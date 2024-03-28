@@ -1,5 +1,6 @@
-import com.belajar.oop.utils.sayHello
-import  kotlin.random.Random
+package mater.cotlin.pemula
+
+import kotlin.random.Random
 
 /*
     * lateinit keyword yang ditambahkan sebelum variable
@@ -242,15 +243,3 @@ fun main(args: Array<String>) {
     println(result4) // [3]
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

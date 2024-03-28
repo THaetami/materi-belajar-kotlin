@@ -32,6 +32,9 @@ fun main() = runBlocking{
         berjalan hingga eksekusi corountine selesai. Selain
         pada function main() kita juga dapat menerapkan
         pada unit test
+
+        note:
+        runBlocking sebaiknya hanya digunakan untuk testing
     */
     launch {
         /*

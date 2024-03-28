@@ -29,6 +29,7 @@ fun main() = runBlocking {
             val element = channel.receive() // Menggunakan fungsi receive untuk membaca/menerima data
             println("Received $element")
         }
+
     }
 
     delay(1000) // Menunggu agar coroutines memiliki waktu untuk berjalan
