@@ -30,8 +30,7 @@ fun validateRequest(request: Any) {
     // iterate dan cek jika memiliki annotation @NotBlank
     for (property in properties) {
         if (property.findAnnotation<NotBlank>() != null) {
-            val value = property.call(request)
-            when (value) {
+            when (val value = property.call(request)) {
                 is String -> {
                     if ("" == value) {
                         /*
